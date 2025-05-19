@@ -10,6 +10,7 @@ defmodule TaskQueue.Server do
   end
 
   def enqueue(task) do
+    task = Map.put_new(task, :retry, 0)
     GenServer.cast(__MODULE__, {:enqueue, task})
   end
 
