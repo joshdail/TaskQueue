@@ -4,8 +4,8 @@ defmodule TaskQueue.Worker do
   # milliseconds between dequeue attempts
   @interval 1000
 
-  # retry attempts allowed
-  @retry 3
+  # default retries
+  @default_retries 3
 
   def start_link(id) do
     GenServer.start_link(__MODULE__, %{}, name: via_name(id))
@@ -27,12 +27,15 @@ defmodule TaskQueue.Worker do
           error ->
             IO.puts("Error running task: #{Exception.message(error)}")
 
-            if task[:retry] < @retry do
-              updated = Map.update!(task, :retry, &(&1 + 1))
-              IO.puts("Retrying (attempt #{updated[:retry]})")
+            retry_count = Map.get(task, :retry, 0)
+            max_retries = Map.get(task, :max_retries, @default_retries)
+
+            if retry_count < max_retries do
+              updated = Map.put(task, :retry, retry_count + 1)
+              IO.puts("Retrying task: #{inspect(updated)} (attempt #{updated[:retry]})")
               TaskQueue.Server.enqueue(updated)
             else
-              IO.puts("Task failed after #{@retry} attempts: #{inspect(task)}")
+              IO.puts("Task failed after #{retry_count} attempts: #{inspect(task)}")
             end
         end
       {:empty, _} ->
@@ -46,6 +49,7 @@ defmodule TaskQueue.Worker do
     Process.send_after(self(), :work, @interval)
   end
 
+  # This function is used to test program behavior on task failure
   defp run_task(%{payload: "fail"} = task) do
     raise "Simulated Failure"
   end
