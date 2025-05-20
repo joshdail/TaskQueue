@@ -36,6 +36,7 @@ defmodule TaskQueue.Worker do
               TaskQueue.Server.enqueue(updated)
             else
               IO.puts("Task failed after #{retry_count} attempts: #{inspect(task)}")
+              TaskQueue.DeadLetter.report(task)
             end
         end
       {:empty, _} ->

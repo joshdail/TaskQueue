@@ -19,6 +19,12 @@ defmodule TaskQueue.MixProject do
   end
 
   defp deps do
-    []
+    [
+      {:phoenix, "~> 1.7"},
+      {:phoenix_live_dashboard, "~> 0.8"},
+      {:telemetry_metrics, ">= 0.0.0"},
+      {:plug_cowboy, "~> 2.6"},
+      {:jason, "~> 1.4"}
+    ]
   end
 end

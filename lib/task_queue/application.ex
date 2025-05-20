@@ -8,6 +8,8 @@ defmodule TaskQueue.Application do
     children = [
       {Registry, keys: :unique, name: TaskQueue.Registry},
       TaskQueue.Server,
+      TaskQueue.DeadLetter,
+      TaskQueueWeb.Endpoint,
       Supervisor.child_spec({TaskQueue.Worker, "worker-1"}, id: :worker_1),
       Supervisor.child_spec({TaskQueue.Worker, "worker-2"}, id: :worker_2),
       Supervisor.child_spec({TaskQueue.Worker, "worker-3"}, id: :worker_3),
