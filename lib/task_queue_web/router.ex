@@ -8,8 +8,17 @@ defmodule TaskQueueWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :api do
+    plug :accepts, ["json"]
+  end
+
   scope "/" do
     pipe_through :browser
     live_dashboard "/dashboard", metrics: TaskQueueWeb.Telemetry
+  end
+
+  scope "/api", TaskQueueWeb do
+    pipe_through :api
+    post "/enqueue", ApiController, :enqueue
   end
 end

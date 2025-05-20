@@ -14,9 +14,7 @@ config :task_queue,
 config :task_queue, TaskQueueWeb.Endpoint,
   url: [host: "localhost"],
   http: [port: 4000],
-  secret_key_base: "LSKJEIVNSODFSDOIUF",
-  server: true,
-  live_view: [signing_salt: "BNMNXCVZXGSDKJFL"]
+  server: true
 
 config :phoenix, :json_library, Jason
 
