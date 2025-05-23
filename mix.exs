@@ -27,7 +27,8 @@ defmodule TaskQueue.MixProject do
       {:oban, "~> 2.15"},
       {:postgrex, ">= 0.0.0"},
       {:plug_cowboy, "~> 2.6"},
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.4"},
+      {:req, "~> 0.4.14"}
     ]
   end
 end

@@ -1,12 +1,25 @@
 defmodule TaskQueueWeb.ApiController do
   use TaskQueueWeb, :controller
 
-  def enqueue(conn, %{"task" => task_params}) do
-    TaskQueue.Server.enqueue(task_params)
+  alias TaskQueue.Workers.HttpWorker
+  require Logger
 
-    conn
-    |> put_status(:accepted)
-    |> json(%{status: "queued"})
+  def enqueue(conn, %{"task" => %{"url" => url}}) do
+    Logger.info("Received enqueue request for URL: #{url}")
+    job = HttpWorker.new(%{"url" => url})
+
+    case Oban.insert(job) do
+      {:ok, _job} ->
+        conn
+        |> put_status(:accepted)
+        |> json(%{status: "queued"})
+
+      {:error, reason} ->
+        Logger.error("Failed to insert job: #{inspect(reason)}")
+        conn
+          |> put_status(:internal_server_error)
+          |> json(%{error: "Failed to enqueue job"})
+    end
   end
 
   def enqueue(conn, params) do

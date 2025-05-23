@@ -50,10 +50,10 @@ defmodule TaskQueue.Worker do
     Process.send_after(self(), :work, @interval)
   end
 
-  # This function is used to test program behavior on task failure
-  defp run_task(%{payload: "fail"} = task) do
-    raise "Simulated Failure"
-  end
+  # Used to test program behavior on task failure
+  # defp run_task(%{payload: "fail"} = task) do
+  #   raise "Simulated Failure"
+  # end
 
   defp run_task(task) do
     ## Simulate doing work, or call task function
