@@ -8,13 +8,31 @@
 import Config
 
 config :task_queue,
-  ecto_repos: []
+  ecto_repos: [TaskQueue.Repo]
+
+config :task_queue, TaskQueue.Repo,
+  database: "task_queue_dev",
+  username: "josh",
+  password: "",
+  hostname: "localhost",
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+config :task_queue, Oban,
+  repo: TaskQueue.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 10]
 
 # Configures the endpoint
 config :task_queue, TaskQueueWeb.Endpoint,
   url: [host: "localhost"],
   http: [port: 4000],
-  server: true
+  server: true,
+  render_errors: [
+    formats: [html: TaskQueueWeb.ErrorHTML, json: TaskQueueWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: TaskQueue.PubSub
 
 config :phoenix, :json_library, Jason
 

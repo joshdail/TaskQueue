@@ -23,6 +23,9 @@ defmodule TaskQueue.MixProject do
       {:phoenix, "~> 1.7"},
       {:phoenix_live_dashboard, "~> 0.8"},
       {:telemetry_metrics, ">= 0.0.0"},
+      {:ecto_sql, "~> 3.10"},
+      {:oban, "~> 2.15"},
+      {:postgrex, ">= 0.0.0"},
       {:plug_cowboy, "~> 2.6"},
       {:jason, "~> 1.4"}
     ]

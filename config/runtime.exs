@@ -1,7 +1,7 @@
 import Config
 
-if config_env() == :prod or config_env() == :dev do
+if config_env() in [:prod, :dev] do
   config :task_queue, TaskQueueWeb.Endpoint,
-  secret_key_base: System.fetch_env!("SECRET_KEY_BASE"),
-  live_view: [signing_salt: System.fetch_env!("SIGNING_SALT")]
+    secret_key_base: System.get_env("SECRET_KEY_BASE") || "dummy_secret_key_base",
+    live_view: [signing_salt: System.get_env("SIGNING_SALT") || "dummy_salt"]
 end
