@@ -21,11 +21,15 @@ defmodule TaskQueue.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7"},
+      {:phoenix_ecto, "~> 4.4"},
+      {:ecto_sql, "~> 3.12"},
       {:phoenix_live_dashboard, "~> 0.8"},
       {:telemetry_metrics, ">= 0.0.0"},
-      {:ecto_sql, "~> 3.10"},
       {:oban, "~> 2.15"},
       {:postgrex, ">= 0.0.0"},
+      {:swoosh, "~> 1.13"},
+      {:gen_smtp, "~> 1.2"},
+      {:finch, "~> 0.16"},
       {:plug_cowboy, "~> 2.6"},
       {:jason, "~> 1.4"},
       {:req, "~> 0.4.14"}

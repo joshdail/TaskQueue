@@ -20,5 +20,6 @@ defmodule TaskQueueWeb.Router do
   scope "/api", TaskQueueWeb do
     pipe_through :api
     post "/enqueue", ApiController, :enqueue
+    post "/send_email", EmailController, :send
   end
 end
