@@ -34,18 +34,6 @@ config :task_queue, TaskQueueWeb.Endpoint,
   ],
   pubsub_server: TaskQueue.PubSub
 
-config :task_queue, TaskQueue.Mailer,
-  adapter: Swoosh.Adapters.SMTP,
-  relay: "smtp.mailtrap.io",
-  username: System.fetch_env!("USERNAME"),
-  password: System.fetch_env!("PASSWORD"),
-  port: 587,
-  tls: :always,
-  ssl: false,
-  auth: :always,
-  retries: 2,
-  no_mx_lookups: false
-
 config :swoosh, :api_client, false
 
 config :phoenix, :json_library, Jason

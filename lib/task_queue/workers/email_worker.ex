@@ -16,7 +16,7 @@ defmodule TaskQueue.Workers.EmailWorker do
 
     Logger.info("Sending email to #{to}")
 
-    case Mailer.deliver(email) do
+    case Swoosh.deliver(email, Mailer) do
       {:ok, _response} ->
         Logger.info("Email sent successfully")
         :ok

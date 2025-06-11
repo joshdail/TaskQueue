@@ -5,3 +5,17 @@ if config_env() in [:prod, :dev] do
     secret_key_base: System.get_env("SECRET_KEY_BASE") || "dummy_secret_key_base",
     live_view: [signing_salt: System.get_env("SIGNING_SALT") || "dummy_salt"]
 end
+
+if config_env() == :dev do
+  config :task_queue, TaskQueue.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: "sandbox.smtp.mailtrap.io",
+    username: System.fetch_env!("USERNAME"),
+    password: System.fetch_env!("PASSWORD"),
+    port: 2525,
+    tls: :always,
+    ssl: false,
+    auth: :always,
+    retries: 2,
+    no_mx_lookups: true
+end
