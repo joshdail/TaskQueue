@@ -32,7 +32,9 @@ defmodule TaskQueue.MixProject do
       {:finch, "~> 0.16"},
       {:plug_cowboy, "~> 2.6"},
       {:jason, "~> 1.4"},
-      {:req, "~> 0.4.14"}
+      {:req, "~> 0.4.14"},
+      {:phoenix_live_view, "~> 1.0.11"},
+      {:floki, ">= 0.30.0", only: :test}
     ]
   end
 end

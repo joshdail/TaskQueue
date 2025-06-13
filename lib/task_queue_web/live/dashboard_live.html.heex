@@ -1,0 +1,23 @@
+<h1>Recent Jobs</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Queue</th>
+      <th>State</th>
+      <th>Args</th>
+      <th>Inserted At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for job <- @jobs do %>
+      <tr>
+        <td><%= job.id %></td>
+        <td><%= job.queue %></td>
+        <td><%= job.state %></td>
+        <td><%= inspect(job.args) %></td>
+        <td><%= job.inserted_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

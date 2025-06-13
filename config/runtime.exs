@@ -8,14 +8,5 @@ end
 
 if config_env() == :dev do
   config :task_queue, TaskQueue.Mailer,
-    adapter: Swoosh.Adapters.SMTP,
-    relay: "sandbox.smtp.mailtrap.io",
-    username: System.fetch_env!("USERNAME"),
-    password: System.fetch_env!("PASSWORD"),
-    port: 2525,
-    tls: :always,
-    ssl: false,
-    auth: :always,
-    retries: 2,
-    no_mx_lookups: true
+    adapter: Swoosh.Adapters.Local
 end

@@ -22,7 +22,7 @@ defmodule TaskQueueWeb.ApiController do
     end
   end
 
-  def enqueue(conn, params) do
+  def enqueue(conn, _params) do
     conn
     |> put_status(:bad_request)
     |> json(%{error: "Missing task payload"})

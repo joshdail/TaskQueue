@@ -7,8 +7,6 @@ export $(grep -v '^#' .env | xargs)
 echo "Starting app with:"
 echo "SECRET_KEY_BASE=${SECRET_KEY_BASE:0:8}..."
 echo "SIGNING_SALT=${SIGNING_SALT:0:8}..."
-echo "USERNAME=$USERNAME"
-echo "PASSWORD=$PASSWORD"
 
 # Start your Phoenix app
 iex -S mix phx.server
